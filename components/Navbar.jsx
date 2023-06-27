@@ -25,7 +25,7 @@ const Navbar = () => {
           <Link href="/invest" scroll={false}>
             <p className="tracking-widest">INVEST</p>
           </Link>
-          <Link href="/#desktop-about" scroll={false}>
+          <Link href="/#about" scroll={false}>
             <p className="tracking-widest">ABOUT</p>
           </Link>
         </div>
@@ -77,11 +77,11 @@ const Navbar = () => {
               <p className="tracking-widest">INVEST</p>
             </Link>
             <Link
-              href="/#mobile-about"
+              href="/#about"
               scroll={false}
               onClick={(e) => {
                 e.preventDefault();
-                handleMobileNavigate("/#mobile-about");
+                handleMobileNavigate("/#about");
               }}>
               <p className="tracking-widest">ABOUT</p>
             </Link>
