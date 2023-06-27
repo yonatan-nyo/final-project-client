@@ -13,7 +13,7 @@ const Navbar = () => {
           <Link href="/invest" scroll={false}>
             <p className="tracking-widest">INVEST</p>
           </Link>
-          <Link href="/#about" scroll={false}>
+          <Link href="/#desktop-about" scroll={false}>
             <p className="tracking-widest">ABOUT</p>
           </Link>
         </div>

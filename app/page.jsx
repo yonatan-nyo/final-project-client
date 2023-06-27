@@ -59,7 +59,7 @@ export default function Home() {
       </section>
 
       {/* Desktop About */}
-      <div id="desktop-about" className="w-full  justify-start min-h-screen items-center py-24 relative hidden md:flex">
+      <div id="desktop-about" className="w-full justify-start min-h-screen items-center py-24 relative hidden md:flex">
         <svg
           width="794"
           height="700"
