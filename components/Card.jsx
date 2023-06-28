@@ -13,7 +13,7 @@ const defaultBusiness = {
 
 const Card = ({ business = defaultBusiness }) => {
   return (
-    <div className="w-[96%] md:w-[47%] lg:w-[32%] h-48 md:h-[15rem] bg-slate-100 mx-auto relative">
+    <div className="w-[96%] md:w-[47%] lg:w-[32%] h-48 md:h-[14rem] bg-slate-100 mx-auto relative">
       <div
         className="w-full absolute h-12 bg-blue-300"
         style={{
