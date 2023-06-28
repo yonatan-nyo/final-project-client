@@ -5,7 +5,7 @@ const Invest = () => {
   return (
     <div className="pt-20 max-w-[1450px] mx-auto flex flex-col justify-between min-h-screen text-center">
       <div>
-        <h1 className="font-bold text-[60px] leading-loose">Invest</h1>
+        <h1 className="font-bold text-[60px] leading-relaxed">Invest Mate</h1>
         <div className="w-full px-3">
           <div className="searchbar">
             <div className="searchbar-wrapper">
@@ -32,7 +32,7 @@ const Invest = () => {
                   title="Search"
                   // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                   role="combobox"
-                  placeholder="Search Google"
+                  placeholder="Search Business Name"
                 />
               </div>
 
