@@ -25,10 +25,10 @@ const Invest = () => {
                 <input
                   type="text"
                   className="searchbar-input"
-                  maxlength="2048"
+                  maxLength="2048"
                   name="q"
-                  autocapitalize="off"
-                  autocomplete="off"
+                  autoCapitalize="off"
+                  autoComplete="off"
                   title="Search"
                   // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                   role="combobox"
