@@ -20,13 +20,7 @@ const Card = ({ business = defaultBusiness }) => {
 
   return (
     <div className="w-[96%] md:w-[47%] lg:w-[32%] h-48 md:h-[14rem] bg-slate-100 mx-auto relative">
-      <div
-        className="w-full absolute h-12 bg-blue-300"
-        style={{
-          background: "rgb(2,0,36)",
-          background: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%) ",
-        }}
-      />
+      <div className="w-full absolute h-12 bg-blue-300 bg-gradient-to-r from-sky-300 to-blue-500" />
       <div className="flex absolute p-8 gap-8 flex-row text-right w-full h-full">
         <div className="w-40 h-[190px] flex-col justify-between">
           <div>
