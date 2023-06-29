@@ -29,7 +29,7 @@ export default function Home() {
       <section
         id="home"
         className="w-full max-w-[1450px] mx-auto md:flex md:justify-between min-h-screen max-w-screen items-center py-20 relative">
-        <div className="block md:hidden">
+        <div className="block md:hidden w-auto">
           <Image
             alt="Invest together"
             src="/illustrationInvestMobile.png"
@@ -48,7 +48,7 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="hidden md:flex absolute right-0 md:w-[28rem] lg:w-[44rem] h-full max-h-screen justify-center items-center -z-10 pr-4 md:pr-6 ">
+        <div className="hidden lg:flex absolute right-0 w-[50%] h-full max-h-screen justify-center items-center -z-10 pr-4 md:pr-6 ">
           <Image
             alt="Invest together"
             src="/illustrationInvest.png"
