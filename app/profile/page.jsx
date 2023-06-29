@@ -2,9 +2,9 @@ import Image from "next/image";
 
 const Profile = () => {
   return (
-    <div className="flex flex-col px-8 pt-24 w-screen h-screen">
-      <div className="flex flex-wrap justify-start px-6 ">
-        <div className=" h-48 w-48 sm:w-auto bg-gray-200 overflow-hidden mb-4 sm:mb-0 border-2 border-[#f0f0f0]">
+    <div className="flex flex-col pt-28 max-w-[1480px] h-screen mx-auto">
+      <div className="flex flex-wrap justify-center sm:justify-start px-6">
+        <div className="h-48 w-48 sm:w-auto rounded-lg overflow-hidden mb-4">
           <Image
             className="object-cover w-full h-full"
             width={400}
@@ -13,7 +13,7 @@ const Profile = () => {
             alt="IMAGE"
           />
         </div>
-        <div className="h-full w-48 sm:w-auto flex flex-col items-start px-8 justify-between py-3">
+        <div className="h-auto w-auto flex flex-col items-center sm:items-start px-8 justify-between py-3">
           <div>
             <h2 className="text-2xl font-bold">Account Name</h2>
             <p className="text-gray-600">john.doe@example.com</p>

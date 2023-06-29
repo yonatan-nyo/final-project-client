@@ -30,7 +30,9 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="hidden sm:flex">
-          <p>Profile</p>
+          <Link href="/profile" scroll={false}>
+            <p className="tracking-widest">PROFILE</p>
+          </Link>
         </div>
         <div
           className="sm:hidden"
@@ -84,6 +86,15 @@ const Navbar = () => {
                 handleMobileNavigate("/#about");
               }}>
               <p className="tracking-widest">ABOUT</p>
+            </Link>
+            <Link
+              href="/profile"
+              scroll={false}
+              onClick={(e) => {
+                e.preventDefault();
+                handleMobileNavigate("/profile");
+              }}>
+              <p className="tracking-widest">PROFILE</p>
             </Link>
           </div>
         </div>
