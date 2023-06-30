@@ -6,3 +6,9 @@ html {
   --scroll-behavior: smooth !important;
   scroll-behavior: smooth !important;
 }
+
+@layer base {
+  button {
+    @apply px-4 py-1;
+  }
+}
