@@ -4,7 +4,10 @@
   input {
     @apply border-b-2 border-slate-300 block w-full focus:border-b-2 outline-none;
   }
+  textarea {
+    @apply border-2 border-slate-300 block w-auto min-h-[10rem];
+  }
   .group-input {
-    @apply my-3;
+    @apply my-6;
   }
 }
