@@ -4,6 +4,7 @@ import React from "react";
 import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { FaFacebook, FaTwitter, FaGoogle } from "react-icons/fa";
 import firebaseInit from "@/config/firebaseConfig";
+import { useRouter } from "next/navigation";
 
 firebaseInit;
 
@@ -12,7 +13,8 @@ const providerFacebook = new FacebookAuthProvider();
 const providerTwitter = new TwitterAuthProvider();
 const auth = getAuth();
 
-const SignIn = ({ signIn, setSignIn }) => {
+const SignIn = ({ signIn, setSignIn, redirect }) => {
+  const router = useRouter();
   const handleSignInGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, providerGoogle);
@@ -57,7 +59,10 @@ const SignIn = ({ signIn, setSignIn }) => {
             ? "fixed bottom-0 left-0 w-screen h-screen bg-black/30 z-[200] duration-300 ease-in"
             : "fixed bottom-[100vh] left-0 w-screen h-screen bg-black/30 z-[200] duration-300 ease-in"
         }
-        onClick={() => setSignIn(false)}
+        onClick={() => {
+          if (redirect) router.push(redirect);
+          setSignIn(false);
+        }}
       />
       <div className="flex justify-center items-center absolute inset-0">
         <div className="w-96 max-w-[100vw] h-auto bg-white z-[200]">

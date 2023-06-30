@@ -1,7 +1,7 @@
 "use client";
 import SignIn from "@/components/SignIn";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
   const [signIn, setSignIn] = useState(false);
@@ -12,7 +12,7 @@ const Profile = () => {
   }, []);
   return (
     <>
-      <SignIn setSignIn={setSignIn} signIn={signIn} />
+      <SignIn setSignIn={setSignIn} signIn={signIn} redirect={"/"} />
       <div className="flex flex-col pt-28 max-w-[1480px] h-screen mx-auto">
         <div className="flex flex-wrap justify-center sm:justify-start px-6">
           <div className="h-48 w-48 sm:w-auto rounded-lg overflow-hidden mb-4">
