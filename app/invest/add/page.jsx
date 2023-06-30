@@ -5,8 +5,8 @@ import "./investAdd.css";
 import ImageInput from "@/components/ImageInput";
 
 const Page = () => {
-  const [logo, setLogo] = useState(null);
-  const [images, setImages] = useState([{ name: "", file: "" }]);
+  const [logo, setLogo] = useState({});
+  const [image, setImage] = useState({});
   const [selectedFile, setSelectedFile] = useState({ name: "" });
 
   const handleFileChange = (event) => {
@@ -14,25 +14,13 @@ const Page = () => {
     setSelectedFile(file);
   };
 
-  const handleAddImage = () => {
-    setImages([...images, { name: "", file: "" }]);
-  };
-
-  const handleDeleteImage = (index) => {
-    const updatedImages = [...images];
-    updatedImages.splice(index, 1);
-    setImages(updatedImages);
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const fd = new FormData(event.target);
 
-    images.forEach((image, index) => {
-      const file = new File([image.file], image.name);
-      fd.append(`image${index}`, file);
-    });
+    fd.append(`logo`, logo, logo.name);
+    fd.append(`image`, image, image.name);
 
     const name = event.target.name.value;
     const fundNeeded = event.target.fundNeeded.value;
@@ -42,13 +30,15 @@ const Page = () => {
     fd.append("fundNeeded", fundNeeded);
     fd.append("overview", overview);
 
-    console.log(fd, "ffffffddddddddd");
+    for (const p of fd) {
+      let name = p[0];
+      let value = p[1];
+
+      console.log(name, value);
+    }
+
     console.log("Form submitted!");
   };
-
-  useEffect(() => {
-    console.log(logo);
-  }, [logo]);
 
   return (
     <div className="max-w-[1450px] mx-auto px-3 flex flex-col">
@@ -100,25 +90,11 @@ const Page = () => {
               ></textarea>
 
               <label htmlFor="images" className="font-bold">
-                Images
+                Business Photo
               </label>
               <div className="flex gap-2">
-                {images.map((image, index) => (
-                  <div key={index} className="relative flex gap-2">
-                    <ImageInput size="small" />
-                    <button
-                      className="w-8 h-8 bg-red-500 text-white rounded-full flex justify-center items-center text-sm absolute -top-1 -right-1"
-                      onClick={() => handleDeleteImage(index)}
-                    >
-                      X
-                    </button>
-                  </div>
-                ))}
-                <div
-                  className="w-32 h-32 sm:w-40 sm:h-40 bg-slate-200 cursor-pointer flex justify-center items-center flex-col"
-                  onClick={handleAddImage}
-                >
-                  <p className="text-[40px]">+</p>
+                <div className="relative flex gap-2">
+                  <ImageInput size="small" setImageFIle={setImage} />
                 </div>
               </div>
 
