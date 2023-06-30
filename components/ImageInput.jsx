@@ -4,9 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { BsCardImage } from "react-icons/bs";
 
-const ImageInput = ({ imageFile, setImageFIle, size, msg = "" }) => {
+const ImageInput = ({ imageFile, setImageFIle = () => {}, size, msg = "" }) => {
   const [url, setUrl] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
 
   const changeImage = () => {
     const input = document.createElement("input");
@@ -18,7 +17,7 @@ const ImageInput = ({ imageFile, setImageFIle, size, msg = "" }) => {
         const reader = new FileReader();
         reader.onload = () => {
           setUrl(reader.result);
-          setSelectedImage(file);
+          setImageFIle(file);
         };
         reader.readAsDataURL(file);
       }
@@ -38,7 +37,7 @@ const ImageInput = ({ imageFile, setImageFIle, size, msg = "" }) => {
             height={400}
             onClick={changeImage}
           />
-          <p className="text-center font-bold">{selectedImage?.name}</p>
+          <p className="text-center font-bold">{imageFile?.name}</p>
           <p className="text-center font-light">*{msg}*</p>
         </div>
       ) : (
