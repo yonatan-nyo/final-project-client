@@ -38,7 +38,7 @@ const DetailPage = () => {
             />
           </div>
           <div className="text-left flex flex-col justify-end">
-            <p className="font-bold text-xl bg-white/80 w-fit p-2 uppercase rounded-md">Category</p>
+            <p className="font-bold text-xl bg-white/80 p-2 uppercase rounded-md w-fit">Category</p>
             <p className="font-bold text-4xl mt-4">Business Name</p>
             <div className="flex gap-4 mt-2">
               <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg">INVEST</button>
@@ -46,18 +46,18 @@ const DetailPage = () => {
             </div>
           </div>
         </section>
-        <section className="w-full max-w-[1450px] mx-auto flex justify-start mt-10 gap-4">
-          <div className="w-80 h-80 border-4 border-slate-300 flex-shrink-0">
+        <section className="w-full max-w-[1450px] mx-auto justify-start mt-10 gap-4 px-4">
+          <div className="w-72 h-72 flex-shrink-0 float-left p-4">
             <Image
-              className="object-cover w-80 h-80"
+              className="object-cover w-68 h-68"
               width={400}
               height={400}
               src="https://upload.wikimedia.org/wikipedia/id/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png"
               alt="IMAGE"
             />
           </div>
-          <div className="flex-grow text-left ml-auto">
-            <p className="font-bold">Overview</p>
+          <div className="flex-grow text-left">
+            <p className="font-bold text-2xl">Overview</p>
             <p className="font-light">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu orci id massa pharetra tristique quis ut libero.
               Sed risus sem, suscipit vel volutpat eget, lobortis nec enim. Ut feugiat dui ipsum, vel porttitor orci sagittis sed.
