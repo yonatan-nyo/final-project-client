@@ -1,0 +1,10 @@
+@tailwind base;
+
+@layer base {
+  input {
+    @apply border-b-2 border-slate-300 block w-full focus:border-b-2 outline-none;
+  }
+  .group-input {
+    @apply my-3;
+  }
+}
