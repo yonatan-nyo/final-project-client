@@ -113,7 +113,7 @@ const Page = () => {
               />
             </div>
           </div>
-          {/* get this map markerCoordinates value */}
+
           <div className="flex-grow flex flex-col justify-between h-auto">
             <div
               ref={mapContainerRef}
@@ -121,21 +121,38 @@ const Page = () => {
             />
 
             <div>
-              <label htmlFor="overview" className="font-bold">
-                Overview
-              </label>
-              <textarea
-                name="overview"
-                id="overview"
-                className="w-full p-2"
-              ></textarea>
-
-              <label htmlFor="images" className="font-bold">
-                Business Photo
-              </label>
-              <div className="flex gap-2">
-                <div className="relative flex gap-2">
-                  <ImageInput size="small" setImageFIle={setImage} />
+              <div className="flex-grow">
+                <div className="my-2">
+                  <label htmlFor="overview" className="font-bold">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    autoComplete="off"
+                    placeholder="Your Business Address"
+                  />
+                </div>
+                <div className="flex gap-4 my-4">
+                  <div className="flex flex-col">
+                    <label htmlFor="images" className="font-bold">
+                      Business Photo
+                    </label>
+                    <div className="relative flex gap-2">
+                      <ImageInput size="small" setImageFIle={setImage} />
+                    </div>
+                  </div>
+                  <div className="w-full ">
+                    <label htmlFor="overview" className="font-bold">
+                      Overview
+                    </label>
+                    <textarea
+                      name="overview"
+                      id="overview"
+                      className="w-full p-2"
+                    ></textarea>
+                  </div>
                 </div>
               </div>
 
