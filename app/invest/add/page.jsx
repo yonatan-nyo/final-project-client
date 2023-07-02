@@ -31,34 +31,27 @@ const Page = () => {
       const fundNeeded = event.target.fundNeeded.value;
       const overview = event.target.overview.value;
       const address = event.target.address.value;
-      const coordinates = markerCoordinates;
+      const locations = markerCoordinates;
 
-      if (!logo.name || !image.name || !name || !fundNeeded || !overview || !coordinates || !address) {
+      if (!logo.name || !image.name || !name || !fundNeeded || !overview || !locations.length || !address || !selectedFile.name) {
         throw "Please insert all data";
       }
 
       fd.append(`logo`, logo, logo.name);
       fd.append(`image`, image, image.name);
-      fd.append("name", name);
-      fd.append("fundNeeded", fundNeeded);
-      fd.append("overview", overview);
-      fd.append("address", address);
-      fd.append("coordinates", coordinates);
-
-      const body = new URLSearchParams();
-      for (const pair of fd) {
-        body.append(pair[0], pair[1]);
-      }
+      fd.append(`pdf`, selectedFile, selectedFile.name);
+      fd.append("locations", locations);
 
       const response = await fetch(BASE_URL + "/bussinesses", {
         method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: body,
+        headers: { token: localStorage.getItem("access_token") },
+        body: fd,
       });
 
       if (!response.ok) {
         throw response;
       }
+      console.log(await response.json());
     } catch (error) {
       toast.error(String(error));
     }
@@ -121,7 +114,13 @@ const Page = () => {
                   <label htmlFor="overview" className="font-bold">
                     Address
                   </label>
-                  <input type="text" name="address" id="address" autoComplete="off" placeholder="Your Business Address" />
+                  <input
+                    type="text"
+                    name="locationDetail"
+                    id="locationDetail"
+                    autoComplete="off"
+                    placeholder="Your Business Address"
+                  />
                 </div>
                 <div className="flex gap-4 my-4">
                   <div className="flex flex-col">
