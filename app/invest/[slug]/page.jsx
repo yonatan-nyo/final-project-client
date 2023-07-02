@@ -2,12 +2,22 @@
 import { useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import Image from "next/image";
+import { BASE_URL } from "@/config/Url";
+
 import "mapbox-gl/dist/mapbox-gl.css";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaHVpZ2kiLCJhIjoiY2xnYjhxbzdhMXA4ZTNsbzd2Nm80OWsycSJ9.bIZhzPsqKFWtpMgJHDfM7Q";
 
-const DetailPage = ({ params }) => {
+async function getDataSlug(slug) {
+  const res = await fetch(`${BASE_URL}/bussinesses/${slug}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
+
+const DetailPage = async ({ params }) => {
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: "map", // container ID
@@ -21,7 +31,8 @@ const DetailPage = ({ params }) => {
     };
   }, []);
 
-  console.log(params, "<<<<<<<<<<<<<<<<<<<<<<<params");
+  const data = await getDataSlug(params.slug);
+
   return (
     <div className="flex flex-col justify-between min-h-screen text-center">
       <div
@@ -37,7 +48,7 @@ const DetailPage = ({ params }) => {
               className="object-cover w-auto h-full"
               width={400}
               height={400}
-              src="https://upload.wikimedia.org/wikipedia/id/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png"
+              src={data?.brandUrl}
               alt="IMAGE"
             />
           </div>
@@ -45,7 +56,7 @@ const DetailPage = ({ params }) => {
             <p className="font-bold text-xl bg-white/80 p-2 uppercase rounded-md w-fit">
               Category
             </p>
-            <p className="font-bold text-4xl mt-4">Business Name</p>
+            <p className="font-bold text-4xl mt-4">{data?.name}</p>
             <div className="flex gap-4 mt-2">
               <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg">
                 INVEST
@@ -62,27 +73,13 @@ const DetailPage = ({ params }) => {
               className="object-cover w-68 h-68"
               width={400}
               height={400}
-              src="https://upload.wikimedia.org/wikipedia/id/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png"
+              src={data?.brandUrl}
               alt="IMAGE"
             />
           </div>
           <div className="flex-grow text-left">
             <p className="font-bold text-2xl">Overview</p>
-            <p className="font-light">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu
-              orci id massa pharetra tristique quis ut libero. Sed risus sem,
-              suscipit vel volutpat eget, lobortis nec enim. Ut feugiat dui
-              ipsum, vel porttitor orci sagittis sed. Integer et leo fermentum,
-              venenatis nibh ac, semper massa. Vivamus rutrum imperdiet
-              lobortis. Phasellus hendrerit nulla non ante ullamcorper
-              fermentum. Nulla in purus ut sem semper convallis. In molestie
-              diam in vehicula pretium. Sed lectus felis, mattis at vestibulum
-              sed, tristique tincidunt risus. Sed non feugiat dolor. Maecenas
-              mattis viverra mauris vitae scelerisque. Quisque volutpat semper
-              gravida. Morbi pharetra lacinia gravida. Fusce sit amet viverra
-              sapien. Phasellus rutrum felis et justo malesuada, ut sodales urna
-              consectetur. Mauris ac eleifend diam, in pellentesque enim.
-            </p>
+            <p className="font-light">{data.overview}</p>
           </div>
         </section>
       </div>
