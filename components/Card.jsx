@@ -3,16 +3,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-const defaultBusiness = {
-  name: "Business Name",
-  slug: "business-name",
-  brandUrl:
-    "https://upload.wikimedia.org/wikipedia/id/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png",
-  fundNeeded: 100000000,
-  category: "resto",
-};
-
-const Card = ({ business = defaultBusiness }) => {
+const Card = ({ data }) => {
+  console.log(data, "<<<<<<data");
   const router = useRouter();
   const handleClick = (slug) => {
     router.push(`/invest/${slug}`);
@@ -25,8 +17,8 @@ const Card = ({ business = defaultBusiness }) => {
         <div className="w-40 h-[190px] flex-col justify-between">
           <div>
             <Image
-              src={business.brandUrl}
-              alt={business?.name}
+              src={data?.brandUrl}
+              alt={data?.name}
               width={400}
               height={400}
               className="bg-white rounded-lg border-2 border-slate-200 w-full h-28 object-contain"
@@ -35,12 +27,13 @@ const Card = ({ business = defaultBusiness }) => {
           <p className="p-2 text-lg leading-relaxed font-semibold">Category</p>
         </div>
         <div className="flex flex-col pt-6 w-full">
-          <p className="text-left font-bold text-2xl">{business.name}</p>
-          <p className="text-left">Rp {Math.ceil(+business.fundNeeded / 40)}</p>
+          <p className="text-left font-bold text-2xl">{data?.name}</p>
+          <p className="text-left">Rp {Math.ceil(+data?.fundNeeded / 40)}</p>
           <div className="flex-grow flex justify-end items-end">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full"
-              onClick={() => handleClick(business.slug)}>
+              onClick={() => handleClick(data?.slug)}
+            >
               Invest
             </button>
           </div>

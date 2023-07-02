@@ -56,7 +56,8 @@ const Invest = async () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="#777777"
-                  className="w-6 h-6">
+                  className="w-6 h-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -69,12 +70,9 @@ const Invest = async () => {
         </div>
 
         <div className="w-full flex flex-wrap gap-y-4 justify-between my-4">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {data.map((item) => (
+            <Card key={item.id} data={item} />
+          ))}
         </div>
       </div>
 
