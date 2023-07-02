@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const Card = ({ data }) => {
-  console.log(data, "<<<<<<data");
   const router = useRouter();
   const handleClick = (slug) => {
     router.push(`/invest/${slug}`);
@@ -17,8 +16,11 @@ const Card = ({ data }) => {
         <div className="w-40 h-[190px] flex-col justify-between">
           <div>
             <Image
-              src={data?.brandUrl}
-              alt={data?.name}
+              src={
+                data?.brandUrl ??
+                "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-icon-default-avatar-profile-icon-vector-social-media-user-image-208413309.jpg"
+              }
+              alt={data?.name ?? "logo"}
               width={400}
               height={400}
               className="bg-white rounded-lg border-2 border-slate-200 w-full h-28 object-contain"
@@ -32,8 +34,7 @@ const Card = ({ data }) => {
           <div className="flex-grow flex justify-end items-end">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full"
-              onClick={() => handleClick(data?.slug)}
-            >
+              onClick={() => handleClick(data?.slug)}>
               Invest
             </button>
           </div>

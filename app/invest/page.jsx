@@ -1,6 +1,7 @@
 import Card from "@/components/Card";
 import "./invest.css";
 import { BASE_URL } from "@/config/Url";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 async function getData() {
   const res = await fetch(BASE_URL + "/bussinesses");
@@ -14,7 +15,6 @@ async function getData() {
 
 const Invest = async () => {
   const data = await getData();
-  console.log(data);
   return (
     <div className="pt-20 max-w-[1450px] mx-auto flex flex-col justify-between min-h-screen text-center">
       <div>
@@ -56,8 +56,7 @@ const Invest = async () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="#777777"
-                  className="w-6 h-6"
-                >
+                  className="w-6 h-6">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -70,8 +69,8 @@ const Invest = async () => {
         </div>
 
         <div className="w-full flex flex-wrap gap-y-4 justify-between my-4">
-          {data.map((item) => (
-            <Card key={item.id} data={item} />
+          {data.map((item, i) => (
+            <Card key={i} data={item} />
           ))}
         </div>
       </div>

@@ -93,7 +93,14 @@ export default function Home() {
         </div>
 
         <div className="w-full md:w-fit px-5 md:px-20 text-center md:text-left">
-          <div className="bg-slate-400 w-32 md:w-52 h-32 md:h-52 mx-auto md:mx-0" />
+          <Image
+            alt="Invest together"
+            src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-icon-default-avatar-profile-icon-vector-social-media-user-image-208413309.jpg"
+            width={800}
+            height={800}
+            className="bg-blend-darken w-32 md:w-52 h-32 md:h-52 mx-auto md:mx-0 object-cover"
+            priority
+          />
           <p className="font-bold mt-4">My. developer</p>
         </div>
         <div className="flex-grow text-center md:text-left px-5 md:px-10 mt-10 md:mt-0">
