@@ -1,13 +1,43 @@
 "use client";
 import SignIn from "@/components/SignIn";
+import { BASE_URL } from "@/config/Url";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const Profile = () => {
+async function getData() {
+  const res = await fetch(BASE_URL + "/users/profile", {
+    headers: {
+      token: localStorage.getItem("access_token"),
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+const Profile = async () => {
+  const router = useRouter();
+  const [profile, setProfile] = useState({});
   const [signIn, setSignIn] = useState(false);
+
+  const logout = () => {
+    localStorage.clear();
+    router.push("/");
+  };
+
   useEffect(() => {
     if (!localStorage.getItem("access_token")) {
       return setSignIn(true);
+    } else {
+      const fetchData = async () => {
+        const data = await getData();
+        setProfile(data.user);
+      };
+      fetchData();
     }
   }, []);
   return (
@@ -26,11 +56,10 @@ const Profile = () => {
           </div>
           <div className="h-auto w-auto flex flex-col items-center sm:items-start px-8 justify-between py-3">
             <div>
-              <h2 className="text-2xl font-bold">Account Name</h2>
-              <p className="text-gray-600">john.doe@example.com</p>
+              <h2 className="text-2xl font-bold">{profile.username ?? "Account Name"}</h2>
             </div>
-            <button className="bg-red-500 text-white px-4 py-2 rounded-full mt-2">
-              <p className=" font-bold">LOGOUT</p>
+            <button className="bg-red-500 text-white px-4 py-2 rounded-full mt-2" onClick={logout}>
+              <p className="font-bold">LOGOUT</p>
             </button>
           </div>
         </div>

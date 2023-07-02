@@ -5,6 +5,7 @@ import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth,
 import { FaFacebook, FaTwitter, FaGoogle } from "react-icons/fa";
 import firebaseInit from "@/config/firebaseConfig";
 import { BASE_URL } from "@/config/Url";
+import { useRouter } from "next/navigation";
 
 firebaseInit;
 
@@ -14,32 +15,26 @@ const providerTwitter = new TwitterAuthProvider();
 const auth = getAuth();
 
 const SignIn = ({ signIn, setSignIn }) => {
+  const router = useRouter();
+
   const handleSignInGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, providerGoogle);
-      console.log(BASE_URL + "/login", {
+
+      const response = await fetch(BASE_URL + "/login", {
         method: "post",
-        body: {
+        body: JSON.stringify({
           id: result.user.uid,
           socialMedia: result.providerId,
           username: result.user.displayName,
-        },
+        }),
         headers: { "Content-Type": "application/json" },
       });
+      const data = await response.json();
 
-      const { data } = await fetch(BASE_URL + "/login", {
-        method: "post",
-        body: {
-          id: result.user.uid,
-          socialMedia: result.providerId,
-          username: result.user.displayName,
-        },
-        headers: { "Content-Type": "application/json" },
-      });
-
-      console.log(data);
-
-      // await this.githubSignIn({ username, email });
+      localStorage.setItem("access_token", data.token);
+      router.push("/profile");
+      setSignIn(false);
     } catch (error) {
       console.log(error);
     }
@@ -47,9 +42,20 @@ const SignIn = ({ signIn, setSignIn }) => {
   const handleSignInFacebook = async () => {
     try {
       const result = await signInWithPopup(auth, providerFacebook);
-      console.log(result.providerId, result.user.uid, result.user.displayName);
+      const response = await fetch(BASE_URL + "/login", {
+        method: "post",
+        body: JSON.stringify({
+          id: result.user.uid,
+          socialMedia: result.providerId,
+          username: result.user.displayName,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await response.json();
 
-      // await this.githubSignIn({ username, email });
+      localStorage.setItem("access_token", data.token);
+      router.push("/profile");
+      setSignIn(false);
     } catch (error) {
       console.log(error);
     }
@@ -57,9 +63,20 @@ const SignIn = ({ signIn, setSignIn }) => {
   const handleSignInTwitter = async () => {
     try {
       const result = await signInWithPopup(auth, providerTwitter);
-      console.log(result.providerId, result.user.uid, result.user.displayName);
+      const response = await fetch(BASE_URL + "/login", {
+        method: "post",
+        body: JSON.stringify({
+          id: result.user.uid,
+          socialMedia: result.providerId,
+          username: result.user.displayName,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await response.json();
 
-      // await this.githubSignIn({ username, email });
+      localStorage.setItem("access_token", data.token);
+      router.push("/profile");
+      setSignIn(false);
     } catch (error) {
       console.log(error);
     }
