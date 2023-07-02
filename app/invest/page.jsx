@@ -1,7 +1,20 @@
 import Card from "@/components/Card";
 import "./invest.css";
+import { BASE_URL } from "@/config/Url";
 
-const Invest = () => {
+async function getData() {
+  const res = await fetch(BASE_URL + "/bussinesses");
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+const Invest = async () => {
+  const data = await getData();
+  console.log(data);
   return (
     <div className="pt-20 max-w-[1450px] mx-auto flex flex-col justify-between min-h-screen text-center">
       <div>
