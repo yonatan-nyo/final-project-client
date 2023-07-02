@@ -1,7 +1,7 @@
 "use client";
 import SignIn from "@/components/SignIn";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
   const [signIn, setSignIn] = useState(false);

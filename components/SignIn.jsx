@@ -4,6 +4,7 @@ import React from "react";
 import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { FaFacebook, FaTwitter, FaGoogle } from "react-icons/fa";
 import firebaseInit from "@/config/firebaseConfig";
+import { BASE_URL } from "@/config/Url";
 
 firebaseInit;
 
@@ -16,7 +17,27 @@ const SignIn = ({ signIn, setSignIn }) => {
   const handleSignInGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, providerGoogle);
-      console.log(result.providerId, result.user.uid, result.user.displayName);
+      console.log(BASE_URL + "/login", {
+        method: "post",
+        body: {
+          id: result.user.uid,
+          socialMedia: result.providerId,
+          username: result.user.displayName,
+        },
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const { data } = await fetch(BASE_URL + "/login", {
+        method: "post",
+        body: {
+          id: result.user.uid,
+          socialMedia: result.providerId,
+          username: result.user.displayName,
+        },
+        headers: { "Content-Type": "application/json" },
+      });
+
+      console.log(data);
 
       // await this.githubSignIn({ username, email });
     } catch (error) {
