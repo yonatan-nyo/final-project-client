@@ -19,7 +19,7 @@ async function getData() {
   return res.json();
 }
 
-const Profile = async () => {
+const Profile = () => {
   const router = useRouter();
   const [profile, setProfile] = useState({});
   const [signIn, setSignIn] = useState(false);
@@ -56,9 +56,14 @@ const Profile = async () => {
           </div>
           <div className="h-auto w-auto flex flex-col items-center sm:items-start px-8 justify-between py-3">
             <div>
-              <h2 className="text-2xl font-bold">{profile.username ?? "Account Name"}</h2>
+              <h2 className="text-2xl font-bold">
+                {profile.username ?? "Account Name"}
+              </h2>
             </div>
-            <button className="bg-red-500 text-white px-4 py-2 rounded-full mt-2" onClick={logout}>
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded-full mt-2"
+              onClick={logout}
+            >
               <p className="font-bold">LOGOUT</p>
             </button>
           </div>
