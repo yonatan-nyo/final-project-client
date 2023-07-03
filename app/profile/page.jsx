@@ -36,9 +36,9 @@ const Profile = () => {
     } else {
       const fetchData = async () => {
         const data = await getData();
-        console.log(data)
+        console.log(data);
         setProfile(data.userProfile.user);
-        setBusinesses(data.userBusinesses)
+        setBusinesses(data.userBusinesses);
       };
       fetchData();
     }
@@ -53,17 +53,22 @@ const Profile = () => {
               className="object-cover w-full h-full"
               width={400}
               height={400}
-              src="https://upload.wikimedia.org/wikipedia/id/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Ml3ZJnxF2DeDBTq3qMFURQx40RPvTrtntJzPLf0zf0WWBd2q-VmUYFrOL24SHiBamiM&usqp=CAU"
               alt="IMAGE"
             />
           </div>
           <div className="flex flex-wrap justify-center sm:justify-start px-4">
             <div className="h-auto w-auto flex flex-col items-center sm:items-start justify-between py-3">
               <div className="mb-2">
-                <h2 className="text-2xl font-bold">{profile?.username ?? "Account Name"}</h2>
+                <h2 className="text-2xl font-bold">
+                  {profile?.username ?? "Account Name"}
+                </h2>
               </div>
               <div className="flex justify-center sm:justify-start">
-                <button className="bg-red-500 text-white px-4 py-2 rounded-full mt-2" onClick={logout}>
+                <button
+                  className="bg-red-500 text-white px-4 py-2 rounded-full mt-2"
+                  onClick={logout}
+                >
                   <p className="font-bold">LOGOUT</p>
                 </button>
               </div>
@@ -77,18 +82,17 @@ const Profile = () => {
               <p className="font-bold text-xl ml-2 mr-2">Business</p>
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg flex py-1 px-2"
-                onClick={() => router.push("/invest/add")}>
+                onClick={() => router.push("/invest/add")}
+              >
                 <p className="flex items-center gap-2">
                   <span className="text-2xl p-0">+</span>Add
                 </p>
               </button>
             </div>
             <ul className="list-disc ml-10 mt-5">
-              {
-                Businesses?.map((el, i) => (
-                  <li key={i}>{el.name}</li>
-                ))
-              }
+              {Businesses?.map((el, i) => (
+                <li key={i}>{el.name}</li>
+              ))}
             </ul>
           </div>
           <div className="flex-auto w-full sm:w-1/2 h-auto rounded mb-2 sm:mr-2 sm:mb-0 mr-2 border-t-2 pt-2 border-slate-400">
