@@ -13,23 +13,24 @@ const CheckoutForm = ({ slug, detail, setShowCheckout }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+
     if (!stripe) {
       return;
     }
 
-    stripe.retrievePaymentIntent(detail.clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case "succeeded":
-          setMessage("Payment succeeded!");
-          break;
-        case "processing":
-          setMessage("Your payment is processing.");
-          break;
-        default:
-          setMessage("Something went wrong.");
-          break;
-      }
-    });
+    // stripe.retrievePaymentIntent(detail.clientSecret).then(({ paymentIntent }) => {
+    //   switch (paymentIntent.status) {
+    //     case "succeeded":
+    //       setMessage("Payment succeeded!");
+    //       break;
+    //     case "processing":
+    //       setMessage("Your payment is processing.");
+    //       break;
+    //     default:
+    //       setMessage("Something went wrong.");
+    //       break;
+    //   }
+    // });
   }, [stripe, detail, slug, router, setShowCheckout]);
 
   const handleSubmit = async (e) => {
