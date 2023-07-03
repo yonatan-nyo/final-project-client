@@ -15,20 +15,19 @@ const stripePromise = loadStripe(
   "pk_test_51NPcQ6ISk7K0qdKAKVPttTgpEXm5kd34yTtUurAg1YQxeAVqRFKwMg5SAqcWdtoFWDHxJpuAG9xzztvjiYWJNEdc00NW8JDNeH"
 );
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiaHVpZ2kiLCJhIjoiY2xnYjhxbzdhMXA4ZTNsbzd2Nm80OWsycSJ9.bIZhzPsqKFWtpMgJHDfM7Q";
+mapboxgl.accessToken = "pk.eyJ1IjoiaHVpZ2kiLCJhIjoiY2xnYjhxbzdhMXA4ZTNsbzd2Nm80OWsycSJ9.bIZhzPsqKFWtpMgJHDfM7Q";
 
 const DetailPage = ({ params }) => {
   const router = useRouter();
   const [data, setData] = useState({});
   const [dataResPayment, setDataResPayment] = useState("");
   const [showCheckout, setShowCheckout] = useState(null);
-  const [options,setOptions] = useState({
-    clientSecret:"",
-    appearance:{
+  const [options, setOptions] = useState({
+    clientSecret: "",
+    appearance: {
       theme: "stripe",
     },
-  })
+  });
 
   const payment = async () => {
     try {
@@ -47,12 +46,16 @@ const DetailPage = ({ params }) => {
       });
       const dataRes = await response.json();
       console.log(dataRes, "-----");
-      router.push('/invest/'+params.slug + `?payment_intent=${dataRes.paymentIntent.id}&payment_intent_client_secret=${dataRes.clientSecret}`)
-      
+      router.push(
+        "/invest/" +
+          params.slug +
+          `?payment_intent=${dataRes.paymentIntent.id}&payment_intent_client_secret=${dataRes.clientSecret}`
+      );
+
       setDataResPayment(dataRes);
       setOptions((options) => {
-        return {...options,clientSecret:dataRes.clientSecret}
-      })
+        return { ...options, clientSecret: dataRes.clientSecret };
+      });
       // setShowCheckout(true); // router.push("/invest/payment");
     } catch (err) {
       console.log(err);
@@ -70,11 +73,16 @@ const DetailPage = ({ params }) => {
     const getDataSlug = async () => {
       try {
         const res = await fetch(`${BASE_URL}/bussinesses/${params.slug}`);
+
+        if (!res.ok) throw await res.json();
+
         const data = await res.json();
+
         map.setCenter(data.locations);
         new mapboxgl.Marker().setLngLat(data.locations).addTo(map);
         setData(data);
       } catch (error) {
+        console.log(error);
         router.push("/invest");
       }
     };
@@ -92,23 +100,10 @@ const DetailPage = ({ params }) => {
     }
   }, [dataResPayment]);
 
-
- 
-  // const appearance = {
-  //   theme: "stripe",
-  // };
-  // const options = {
-  //   clientSecret: dataResPayment.clientSecret,
-  //   appearance,
-  // };
-
   return (
     <>
       <div className="flex flex-col justify-between min-h-screen text-center">
-        <div
-          id="map"
-          className="w-screen mt-20 h-[25vh] bg-[#ebebeb] sticky top-0 left-0 z-0"
-        />
+        <div id="map" className="w-screen mt-20 h-[25vh] bg-[#ebebeb] sticky top-0 left-0 z-0" />
 
         {/* Content */}
         <div className="absolute top-0 left-0 mt-20 py-[15vh] h-auto flex flex-col w-screen mx-auto">
@@ -126,23 +121,17 @@ const DetailPage = ({ params }) => {
               />
             </div>
             <div className="text-left flex flex-col justify-end">
-              <p className="font-bold text-xl bg-white/80 p-2 uppercase rounded-md w-fit">
-                Category
-              </p>
+              <p className="font-bold text-xl bg-white/80 p-2 uppercase rounded-md w-fit">Category</p>
               <p className="font-bold text-4xl mt-4">{data?.name}</p>
               <div className="flex gap-4 mt-2">
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg"
-                  onClick={payment}
-                >
+                <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg" onClick={payment}>
                   INVEST
                 </button>
                 <a
                   href={data?.pdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-red-500 hover:bg-red-700 text-white rounded-md shadow-lg w-fit py-1 px-2"
-                >
+                  className="bg-red-500 hover:bg-red-700 text-white rounded-md shadow-lg w-fit py-1 px-2">
                   PROSPEKTUS
                 </a>
               </div>
@@ -172,7 +161,7 @@ const DetailPage = ({ params }) => {
       {options?.clientSecret && showCheckout && (
         <div className="Stripe fixed top-0 flex w-screen h-screen justify-center items-center">
           <Elements options={options} stripe={stripePromise}>
-            <CheckoutForm slug={params.slug} detail={dataResPayment} />
+            <CheckoutForm slug={params.slug} detail={dataResPayment} setShowCheckout={setShowCheckout} />
           </Elements>
         </div>
       )}
