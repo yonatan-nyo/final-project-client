@@ -28,14 +28,19 @@ export default function CheckoutForm({ slug, detail }) {
     if (!clientSecret) {
       return;
     }
+    // console.log(clientSecret,'ini detail anjay ');
 
-    stripe
-      .retrievePaymentIntent(clientSecret)
-      .then(async ({ paymentIntent }) => {
-        switch (paymentIntent.status) {
-          case "succeeded":
-            setMessage("Payment succeeded!");
-            const response = await fetch(BASE_URL + "/payments/success", {
+    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+      // console.log(paymentIntent,'ini intent');
+      switch (paymentIntent.status) {
+        case "succeeded":
+          setMessage("Payment succeeded!");
+
+          let response;
+          const fetchData = async () => {
+            console.log(detail.clientSecret);
+            await new Promise((resolve) => setTimeout(resolve, 2 * 1000));
+             response = await fetch(BASE_URL + "/payments/success", {
               method: "POST",
               headers: {
                 token: localStorage.getItem("access_token"),
@@ -47,18 +52,21 @@ export default function CheckoutForm({ slug, detail }) {
                 slug,
               }),
             });
-            break;
-          case "processing":
-            setMessage("Your payment is processing.");
-            break;
-          case "requires_payment_method":
-            setMessage("Your payment was not successful, please try again.");
-            break;
-          default:
-            setMessage("Something went wrong.");
-            break;
-        }
-      });
+          };
+
+          fetchData()
+          break;
+        case "processing":
+          setMessage("Your payment is processing.");
+          break;
+        case "requires_payment_method":
+          setMessage("Your payment was not successful, please try again.");
+          break;
+        default:
+          setMessage("Something went wrong.");
+          break;
+      }
+    });
   }, [stripe]);
 
   const handleSubmit = async (e) => {

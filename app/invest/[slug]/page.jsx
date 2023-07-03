@@ -23,6 +23,12 @@ const DetailPage = ({ params }) => {
   const [data, setData] = useState({});
   const [dataResPayment, setDataResPayment] = useState("");
   const [showCheckout, setShowCheckout] = useState(null);
+  const [options,setOptions] = useState({
+    clientSecret:"",
+    appearance:{
+      theme: "stripe",
+    },
+  })
 
   const payment = async () => {
     try {
@@ -41,8 +47,13 @@ const DetailPage = ({ params }) => {
       });
       const dataRes = await response.json();
       console.log(dataRes, "-----");
+      router.push('/invest/'+params.slug + `?payment_intent=${dataRes.paymentIntent.id}&payment_intent_client_secret=${dataRes.clientSecret}`)
+      
       setDataResPayment(dataRes);
-      setShowCheckout(true); // router.push("/invest/payment");
+      setOptions((options) => {
+        return {...options,clientSecret:dataRes.clientSecret}
+      })
+      // setShowCheckout(true); // router.push("/invest/payment");
     } catch (err) {
       console.log(err);
     }
@@ -75,13 +86,21 @@ const DetailPage = ({ params }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const appearance = {
-    theme: "stripe",
-  };
-  const options = {
-    clientSecret: dataResPayment.clientSecret,
-    appearance,
-  };
+  useEffect(() => {
+    if (dataResPayment !== "") {
+      setShowCheckout(true);
+    }
+  }, [dataResPayment]);
+
+
+ 
+  // const appearance = {
+  //   theme: "stripe",
+  // };
+  // const options = {
+  //   clientSecret: dataResPayment.clientSecret,
+  //   appearance,
+  // };
 
   return (
     <>
@@ -150,7 +169,7 @@ const DetailPage = ({ params }) => {
         </div>
       </div>
 
-      {dataResPayment?.clientSecret && (
+      {options?.clientSecret && showCheckout && (
         <div className="Stripe fixed top-0 flex w-screen h-screen justify-center items-center">
           <Elements options={options} stripe={stripePromise}>
             <CheckoutForm slug={params.slug} detail={dataResPayment} />
