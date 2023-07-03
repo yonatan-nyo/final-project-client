@@ -1,20 +1,45 @@
+"use client";
+import React, { useState, useEffect } from "react";
 import Card from "@/components/Card";
 import "./invest.css";
 import { BASE_URL } from "@/config/Url";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-async function getData() {
-  const res = await fetch(BASE_URL + "/bussinesses");
+const Invest = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [data, setData] = useState([]);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await fetch(BASE_URL + "/bussinesses");
 
-  return res.json();
-}
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
 
-const Invest = async () => {
-  const data = await getData();
+        const data = await res.json();
+        setData(data);
+        setFilteredData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getData();
+  }, []);
+
+  const filterData = () => {
+    const filtered = data.filter((item) => item.name?.toLowerCase().includes(searchQuery.toLowerCase()));
+    setFilteredData(filtered);
+  };
+
+  useEffect(() => {
+    filterData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery]);
+
   return (
     <div className="pt-20 max-w-[1450px] mx-auto flex flex-col justify-between min-h-screen text-center">
       <div>
@@ -46,37 +71,19 @@ const Invest = async () => {
                   // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                   role="combobox"
                   placeholder="Search Business Name"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
-              </div>
-
-              <div className="searchbar-right">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="#777777"
-                  className="w-6 h-6">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
-                  />
-                </svg>
               </div>
             </div>
           </div>
         </div>
 
         <div className="w-full flex flex-wrap gap-y-4 justify-between my-4">
-          {data.map((item, i) => (
+          {filteredData.map((item, i) => (
             <Card key={i} data={item} />
           ))}
         </div>
-      </div>
-
-      <div className="w-full flex justify-end mb-20">
-        <div className="h-10 w-40 bg-slate-300"></div>
       </div>
     </div>
   );
