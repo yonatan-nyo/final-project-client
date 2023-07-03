@@ -33,8 +33,9 @@ const Card = ({ data }) => {
           <p className="text-left">Rp {Math.ceil(+data?.fundNeeded / 40)}</p>
           <div className="flex-grow flex justify-end items-end">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full"
-              onClick={() => handleClick(data?.slug)}>
+              className="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-6 rounded-full"
+              onClick={() => handleClick(data?.slug)}
+            >
               Invest
             </button>
           </div>

@@ -23,6 +23,7 @@ const Profile = () => {
   const router = useRouter();
   const [profile, setProfile] = useState({});
   const [Businesses, setBusinesses] = useState([]);
+  const [investments, setInvestments] = useState([]);
   const [signIn, setSignIn] = useState(false);
 
   const logout = () => {
@@ -39,6 +40,7 @@ const Profile = () => {
         console.log(data);
         setProfile(data.userProfile.user);
         setBusinesses(data.userBusinesses);
+        setInvestments(data.userFunds);
       };
       fetchData();
     }
@@ -97,6 +99,11 @@ const Profile = () => {
           </div>
           <div className="flex-auto w-full sm:w-1/2 h-auto rounded mb-2 sm:mr-2 sm:mb-0 mr-2 border-t-2 pt-2 border-slate-400">
             <p className="font-bold text-xl ml-2">Investments</p>
+            <ul className="list-disc ml-10 mt-5">
+              {investments?.map((el, i) => (
+                <li key={i}>{el.bussinessName}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
