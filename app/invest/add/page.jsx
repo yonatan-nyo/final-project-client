@@ -30,10 +30,10 @@ const Page = () => {
       const name = event.target.name.value;
       const fundNeeded = event.target.fundNeeded.value;
       const overview = event.target.overview.value;
-      const address = event.target.address.value;
+      const locationDetail = event.target.locationDetail.value;
       const locations = markerCoordinates;
 
-      if (!logo.name || !image.name || !name || !fundNeeded || !overview || !locations.length || !address || !selectedFile.name) {
+      if (!logo.name || !image.name || !name || !fundNeeded || !overview || !locations.length || !locationDetail || !selectedFile.name) {
         throw "Please insert all data";
       }
 
