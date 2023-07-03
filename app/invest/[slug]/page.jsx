@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import Image from "next/image";
@@ -6,11 +7,46 @@ import { BASE_URL } from "@/config/Url";
 import { useRouter } from "next/navigation";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-mapboxgl.accessToken = "pk.eyJ1IjoiaHVpZ2kiLCJhIjoiY2xnYjhxbzdhMXA4ZTNsbzd2Nm80OWsycSJ9.bIZhzPsqKFWtpMgJHDfM7Q";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "@/components/CheckoutForm";
+import "./Stripe.css";
+const stripePromise = loadStripe(
+  "pk_test_51NPcQ6ISk7K0qdKAKVPttTgpEXm5kd34yTtUurAg1YQxeAVqRFKwMg5SAqcWdtoFWDHxJpuAG9xzztvjiYWJNEdc00NW8JDNeH"
+);
+
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiaHVpZ2kiLCJhIjoiY2xnYjhxbzdhMXA4ZTNsbzd2Nm80OWsycSJ9.bIZhzPsqKFWtpMgJHDfM7Q";
 
 const DetailPage = ({ params }) => {
   const router = useRouter();
   const [data, setData] = useState({});
+  const [dataResPayment, setDataResPayment] = useState("");
+  const [showCheckout, setShowCheckout] = useState(null);
+
+  const payment = async () => {
+    try {
+      if (!localStorage.getItem("access_token")) throw "Please login first";
+
+      const response = await fetch(BASE_URL + "/payments/init", {
+        method: "POST",
+        headers: {
+          token: localStorage.getItem("access_token"),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          BussinessId: data._id,
+          amount: 100000,
+        }),
+      });
+      const dataRes = await response.json();
+      console.log(dataRes, "-----");
+      setDataResPayment(dataRes);
+      setShowCheckout(true); // router.push("/invest/payment");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -39,64 +75,89 @@ const DetailPage = ({ params }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    console.log(data, "hete");
-  }, [data]);
+  const appearance = {
+    theme: "stripe",
+  };
+  const options = {
+    clientSecret: dataResPayment.clientSecret,
+    appearance,
+  };
 
   return (
-    <div className="flex flex-col justify-between min-h-screen text-center">
-      <div id="map" className="w-screen mt-20 h-[25vh] bg-[#ebebeb] absolute top-0 left-0" />
+    <>
+      <div className="flex flex-col justify-between min-h-screen text-center">
+        <div
+          id="map"
+          className="w-screen mt-20 h-[25vh] bg-[#ebebeb] sticky top-0 left-0 z-0"
+        />
 
-      {/* Content */}
-      <div className="absolute top-0 left-0 mt-20 py-[15vh] h-auto flex flex-col w-screen mx-auto">
-        <section className="w-full max-w-[1450px] mx-auto flex justify-start overflow-x-hidden">
-          <div className="h-[20vh] px-4">
-            <Image
-              className="object-cover w-auto h-full"
-              width={400}
-              height={400}
-              src={
-                data?.brandUrl ??
-                "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-icon-default-avatar-profile-icon-vector-social-media-user-image-208413309.jpg"
-              }
-              alt="IMAGE"
-            />
-          </div>
-          <div className="text-left flex flex-col justify-end">
-            <p className="font-bold text-xl bg-white/80 p-2 uppercase rounded-md w-fit">Category</p>
-            <p className="font-bold text-4xl mt-4">{data?.name}</p>
-            <div className="flex gap-4 mt-2">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg">INVEST</button>
-              <a
-                href={data?.pdfUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-red-500 hover:bg-red-700 text-white rounded-md shadow-lg w-fit py-1 px-2">
-                PROSPEKTUS
-              </a>
+        {/* Content */}
+        <div className="absolute top-0 left-0 mt-20 py-[15vh] h-auto flex flex-col w-screen mx-auto">
+          <section className="w-full max-w-[1450px] mx-auto flex justify-start overflow-x-hidden">
+            <div className="h-[20vh] px-4">
+              <Image
+                className="object-cover w-auto h-full"
+                width={400}
+                height={400}
+                src={
+                  data?.brandUrl ??
+                  "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-icon-default-avatar-profile-icon-vector-social-media-user-image-208413309.jpg"
+                }
+                alt="IMAGE"
+              />
             </div>
-          </div>
-        </section>
-        <section className="w-full max-w-[1450px] mx-auto justify-start mt-10 gap-4 px-4">
-          <div className="w-72 h-72 flex-shrink-0 float-left p-4">
-            <Image
-              className="object-cover w-68 h-68 "
-              width={400}
-              height={400}
-              src={
-                data?.brandUrl ??
-                "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-icon-default-avatar-profile-icon-vector-social-media-user-image-208413309.jpg"
-              }
-              alt="IMAGE"
-            />
-          </div>
-          <div className="flex-grow text-left">
-            <p className="font-bold text-2xl">Overview</p>
-            <p className="font-light">{data?.overview}</p>
-          </div>
-        </section>
+            <div className="text-left flex flex-col justify-end">
+              <p className="font-bold text-xl bg-white/80 p-2 uppercase rounded-md w-fit">
+                Category
+              </p>
+              <p className="font-bold text-4xl mt-4">{data?.name}</p>
+              <div className="flex gap-4 mt-2">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg"
+                  onClick={payment}
+                >
+                  INVEST
+                </button>
+                <a
+                  href={data?.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-red-500 hover:bg-red-700 text-white rounded-md shadow-lg w-fit py-1 px-2"
+                >
+                  PROSPEKTUS
+                </a>
+              </div>
+            </div>
+          </section>
+          <section className="w-full max-w-[1450px] mx-auto justify-start mt-10 gap-4 px-4">
+            <div className="w-72 h-72 flex-shrink-0 float-left p-4">
+              <Image
+                className="object-cover w-68 h-68 "
+                width={400}
+                height={400}
+                src={
+                  data?.brandUrl ??
+                  "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-icon-default-avatar-profile-icon-vector-social-media-user-image-208413309.jpg"
+                }
+                alt="IMAGE"
+              />
+            </div>
+            <div className="flex-grow text-left">
+              <p className="font-bold text-2xl">Overview</p>
+              <p className="font-light">{data?.overview}</p>
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
+
+      {dataResPayment?.clientSecret && (
+        <div className="Stripe fixed top-0 flex w-screen h-screen justify-center items-center">
+          <Elements options={options} stripe={stripePromise}>
+            <CheckoutForm slug={params.slug} detail={dataResPayment} />
+          </Elements>
+        </div>
+      )}
+    </>
   );
 };
 
