@@ -31,7 +31,9 @@ const Invest = () => {
   }, []);
 
   const filterData = () => {
-    const filtered = data.filter((item) => item.name?.toLowerCase().includes(searchQuery.toLowerCase()));
+    const filtered = data.filter((item) =>
+      item.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     setFilteredData(filtered);
   };
 

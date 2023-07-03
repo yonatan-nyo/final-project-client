@@ -6,7 +6,8 @@ import { BASE_URL } from "@/config/Url";
 import { useRouter } from "next/navigation";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-mapboxgl.accessToken = "pk.eyJ1IjoiaHVpZ2kiLCJhIjoiY2xnYjhxbzdhMXA4ZTNsbzd2Nm80OWsycSJ9.bIZhzPsqKFWtpMgJHDfM7Q";
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiaHVpZ2kiLCJhIjoiY2xnYjhxbzdhMXA4ZTNsbzd2Nm80OWsycSJ9.bIZhzPsqKFWtpMgJHDfM7Q";
 
 const DetailPage = ({ params }) => {
   const router = useRouter();
@@ -45,7 +46,10 @@ const DetailPage = ({ params }) => {
 
   return (
     <div className="flex flex-col justify-between min-h-screen text-center">
-      <div id="map" className="w-screen mt-20 h-[25vh] bg-[#ebebeb] absolute top-0 left-0" />
+      <div
+        id="map"
+        className="w-screen mt-20 h-[25vh] bg-[#ebebeb] absolute top-0 left-0"
+      />
 
       {/* Content */}
       <div className="absolute top-0 left-0 mt-20 py-[15vh] h-auto flex flex-col w-screen mx-auto">
@@ -63,15 +67,20 @@ const DetailPage = ({ params }) => {
             />
           </div>
           <div className="text-left flex flex-col justify-end">
-            <p className="font-bold text-xl bg-white/80 p-2 uppercase rounded-md w-fit">Category</p>
+            <p className="font-bold text-xl bg-white/80 p-2 uppercase rounded-md w-fit">
+              Category
+            </p>
             <p className="font-bold text-4xl mt-4">{data?.name}</p>
             <div className="flex gap-4 mt-2">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg">INVEST</button>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg">
+                INVEST
+              </button>
               <a
                 href={data?.pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-red-500 hover:bg-red-700 text-white rounded-md shadow-lg w-fit py-1 px-2">
+                className="bg-red-500 hover:bg-red-700 text-white rounded-md shadow-lg w-fit py-1 px-2"
+              >
                 PROSPEKTUS
               </a>
             </div>
@@ -84,7 +93,7 @@ const DetailPage = ({ params }) => {
               width={400}
               height={400}
               src={
-                data?.brandUrl ??
+                data?.imagesUrl ??
                 "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-icon-default-avatar-profile-icon-vector-social-media-user-image-208413309.jpg"
               }
               alt="IMAGE"
