@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { PaymentElement, LinkAuthenticationElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {
+  PaymentElement,
+  LinkAuthenticationElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
 import { BASE_URL } from "@/config/Url";
 import { useRouter } from "next/navigation";
 
@@ -13,7 +18,6 @@ const CheckoutForm = ({ slug, detail, setShowCheckout }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-
     if (!stripe) {
       return;
     }
@@ -48,7 +52,6 @@ const CheckoutForm = ({ slug, detail, setShowCheckout }) => {
       },
       redirect: "if_required",
     });
-    console.log(res.paymentIntent.status);
 
     if (res.error) {
       setMessage(error.message);
@@ -84,10 +87,15 @@ const CheckoutForm = ({ slug, detail, setShowCheckout }) => {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit} className="bg-white">
-      <LinkAuthenticationElement id="link-authentication-element" onChange={(e) => setEmail(e?.target?.value)} />
+      <LinkAuthenticationElement
+        id="link-authentication-element"
+        onChange={(e) => setEmail(e?.target?.value)}
+      />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button id="submit" disabled={!stripe || isLoading}>
-        <span id="button-text">{isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}</span>
+        <span id="button-text">
+          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+        </span>
       </button>
       {message && <div id="payment-message">{message}</div>}
     </form>

@@ -37,7 +37,6 @@ const Profile = () => {
     } else {
       const fetchData = async () => {
         const data = await getData();
-        console.log(data);
         setProfile(data.userProfile.user);
         setBusinesses(data.userBusinesses);
         setInvestments(data.userFunds);

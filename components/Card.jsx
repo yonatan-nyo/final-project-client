@@ -36,7 +36,7 @@ const Card = ({ data }) => {
               className="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-6 rounded-full"
               onClick={() => handleClick(data?.slug)}
             >
-              Invest
+              <p>SEE DETAIL</p>
             </button>
           </div>
         </div>

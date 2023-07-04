@@ -11,7 +11,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html className="scroll-smooth" style={{ scrollBehavior: "smooth" }} lang="en">
+    <html
+      className="scroll-smooth"
+      style={{ scrollBehavior: "smooth" }}
+      lang="en"
+    >
       <body className={raleway.className} style={{ overflowX: "hidden" }}>
         <header>
           <Navbar />

@@ -15,13 +15,15 @@ const stripePromise = loadStripe(
   "pk_test_51NPcQ6ISk7K0qdKAKVPttTgpEXm5kd34yTtUurAg1YQxeAVqRFKwMg5SAqcWdtoFWDHxJpuAG9xzztvjiYWJNEdc00NW8JDNeH"
 );
 
-mapboxgl.accessToken = "pk.eyJ1IjoiaHVpZ2kiLCJhIjoiY2xnYjhxbzdhMXA4ZTNsbzd2Nm80OWsycSJ9.bIZhzPsqKFWtpMgJHDfM7Q";
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiaHVpZ2kiLCJhIjoiY2xnYjhxbzdhMXA4ZTNsbzd2Nm80OWsycSJ9.bIZhzPsqKFWtpMgJHDfM7Q";
 
 const DetailPage = ({ params }) => {
   const router = useRouter();
   const [data, setData] = useState({});
   const [dataResPayment, setDataResPayment] = useState("");
   const [showCheckout, setShowCheckout] = useState(null);
+  const [showInvest, setShowInvest] = useState(false);
   const [options, setOptions] = useState({
     clientSecret: "",
     appearance: {
@@ -45,7 +47,6 @@ const DetailPage = ({ params }) => {
         }),
       });
       const dataRes = await response.json();
-      console.log(dataRes, "-----");
       router.push(
         "/invest/" +
           params.slug +
@@ -56,7 +57,6 @@ const DetailPage = ({ params }) => {
       setOptions((options) => {
         return { ...options, clientSecret: dataRes.clientSecret };
       });
-      // setShowCheckout(true); // router.push("/invest/payment");
     } catch (err) {
       console.log(err);
     }
@@ -70,13 +70,49 @@ const DetailPage = ({ params }) => {
       zoom: 9, // starting zoom
       interactive: false,
     });
+
     const getDataSlug = async () => {
       try {
+        let UserId = null;
+        if (localStorage.getItem("access_token")) {
+          const res = await fetch(BASE_URL + "/users/profile", {
+            headers: {
+              token: localStorage.getItem("access_token"),
+            },
+          });
+
+          if (!res.ok) {
+            throw new Error("Failed to fetch data");
+          }
+
+          const detailUser = await res.json();
+          UserId = detailUser.userProfile.user._id;
+        }
+
         const res = await fetch(`${BASE_URL}/bussinesses/${params.slug}`);
 
         if (!res.ok) throw await res.json();
 
         const data = await res.json();
+
+        let isUserFunded = false;
+        let isUserOwner = false;
+        if (UserId) {
+          data.fundReceived.forEach((el) => {
+            if (el.UserId === UserId) {
+              isUserFunded = true;
+            }
+          });
+          if (data.UserId === UserId) {
+            isUserOwner = true;
+          }
+
+          if (!isUserFunded && !isUserOwner) {
+            setShowInvest(true);
+          }
+        } else {
+          setShowInvest(true);
+        }
 
         map.setCenter(data.locations);
         new mapboxgl.Marker().setLngLat(data.locations).addTo(map);
@@ -103,7 +139,10 @@ const DetailPage = ({ params }) => {
   return (
     <>
       <div className="flex flex-col justify-between min-h-screen text-center">
-        <div id="map" className="w-screen mt-20 h-[25vh] bg-[#ebebeb] sticky top-0 left-0 z-0" />
+        <div
+          id="map"
+          className="w-screen mt-20 h-[25vh] bg-[#ebebeb] sticky top-0 left-0 z-0"
+        />
 
         {/* Content */}
         <div className="absolute top-0 left-0 mt-20 py-[15vh] h-auto flex flex-col w-screen mx-auto">
@@ -121,18 +160,26 @@ const DetailPage = ({ params }) => {
               />
             </div>
             <div className="text-left flex flex-col justify-end">
-              <p className="font-bold text-xl bg-white/80 p-2 uppercase rounded-md w-fit">Category</p>
+              <p className="font-bold text-xl bg-white/80 p-2 uppercase rounded-md w-fit">
+                Category
+              </p>
               <p className="font-bold text-4xl mt-4">{data?.name}</p>
               <div className="flex gap-4 mt-2">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg" onClick={payment}>
-                  INVEST
-                </button>
+                {showInvest && (
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg"
+                    onClick={payment}
+                  >
+                    INVEST
+                  </button>
+                )}
                 <a
                   href={data?.pdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-red-500 hover:bg-red-700 text-white rounded-md shadow-lg w-fit py-1 px-2">
-                  PROSPEKTUS
+                  className="border-2 border-blue-600 bg-white hover:brightness-90 rounded-md shadow-lg w-fit py-1 px-2 flex justify-center items-center"
+                >
+                  <p className="text-blue-500">PROSPEKTUS</p>
                 </a>
               </div>
             </div>
@@ -161,7 +208,11 @@ const DetailPage = ({ params }) => {
       {options?.clientSecret && showCheckout && (
         <div className="Stripe fixed top-0 flex w-screen h-screen justify-center items-center">
           <Elements options={options} stripe={stripePromise}>
-            <CheckoutForm slug={params.slug} detail={dataResPayment} setShowCheckout={setShowCheckout} />
+            <CheckoutForm
+              slug={params.slug}
+              detail={dataResPayment}
+              setShowCheckout={setShowCheckout}
+            />
           </Elements>
         </div>
       )}
