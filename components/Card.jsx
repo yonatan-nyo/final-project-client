@@ -30,12 +30,13 @@ const Card = ({ data }) => {
         </div>
         <div className="flex flex-col pt-6 w-full">
           <p className="text-left font-bold text-2xl">{data?.name}</p>
-          <p className="text-left">Rp {Math.ceil(+data?.fundNeeded / 40)}</p>
+          <p className="text-left">
+            {Math.ceil(+data?.fundNeeded / 40).toLocaleString("id-ID", { style: "currency", currency: "IDR" })}
+          </p>
           <div className="flex-grow flex justify-end items-end">
             <button
               className="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-6 rounded-full"
-              onClick={() => handleClick(data?.slug)}
-            >
+              onClick={() => handleClick(data?.slug)}>
               <p>SEE DETAIL</p>
             </button>
           </div>
