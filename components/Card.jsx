@@ -26,7 +26,10 @@ const Card = ({ data }) => {
               className="bg-white rounded-lg border-2 border-slate-200 w-full h-28 object-contain"
             />
           </div>
-          <p className="p-2 text-lg leading-relaxed font-semibold">Category</p>
+          <div className="mt-4 leading-relaxed font-semibold w-full bg-white border-2 border-slate-400 h-4 overflow-hidden rounded-full">
+            <div className="h-4 w-[5%] bg-green-500" style={{ width: Math.floor(data?.fundReceived?.length * 2.5) + "%" }} />
+          </div>
+          <p className="text-center">{data?.fundReceived?.length} / 40</p>
         </div>
         <div className="flex flex-col pt-6 w-full">
           <p className="text-left font-bold text-2xl">{data?.name}</p>

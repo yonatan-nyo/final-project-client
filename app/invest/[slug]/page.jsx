@@ -96,7 +96,12 @@ const DetailPage = ({ params }) => {
 
         let isUserFunded = false;
         let isUserOwner = false;
+        let isFundedFull = false;
         if (UserId) {
+          if (data.fundReceived.length === 40) {
+            isFundedFull = true;
+          }
+
           data.fundReceived.forEach((el) => {
             if (el.UserId === UserId) {
               isUserFunded = true;
@@ -106,7 +111,7 @@ const DetailPage = ({ params }) => {
             isUserOwner = true;
           }
 
-          if (!isUserFunded && !isUserOwner) {
+          if (!isUserFunded && !isUserOwner && !isFundedFull) {
             setShowInvest(true);
           }
         } else {
