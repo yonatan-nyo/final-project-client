@@ -10,8 +10,8 @@ const Card = ({ data }) => {
   };
 
   return (
-    <div className="w-[96%] md:w-[47%] lg:w-[32%] h-48 md:h-[14rem] bg-slate-100 mx-auto relative">
-      <div className="w-full absolute h-12 bg-blue-300 bg-gradient-to-r from-sky-300 to-blue-500" />
+    <div className="w-[96%] md:w-[47%] lg:w-[32%] h-48 md:h-[14rem] bg-slate-100 mx-auto relative rounded-xl shadow-lg">
+      <div className="w-full absolute h-12 bg-blue-300 bg-gradient-to-r from-sky-300 to-blue-500 rounded-t-lg" />
       <div className="flex absolute p-8 gap-8 flex-row text-right w-full h-full">
         <div className="w-40 h-[190px] flex-col justify-between">
           <div>
@@ -34,11 +34,11 @@ const Card = ({ data }) => {
             {Math.ceil(+data?.fundNeeded / 40).toLocaleString("id-ID", { style: "currency", currency: "IDR" })}
           </p>
           <div className="flex-grow flex justify-end items-end">
-            <button
+            <a
               className="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-6 rounded-full"
               onClick={() => handleClick(data?.slug)}>
               <p>SEE DETAIL</p>
-            </button>
+            </a>
           </div>
         </div>
       </div>

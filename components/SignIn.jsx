@@ -104,24 +104,24 @@ const SignIn = ({ signIn, setSignIn }) => {
             <p>Sign in to invest!</p>
           </div>
           <div className="mx-2">
-            <button
+            <a
               className="flex h-12 w-full items-center  px-4 py-2  text-white bg-red-500 hover:bg-red-600 mb-2"
               onClick={handleSignInGoogle}>
               <FaGoogle className="mr-2 text-xl" />
               <p className="font-medium">Sign in with Google</p>
-            </button>
-            <button
+            </a>
+            <a
               className="flex h-12 w-full items-center  px-4 py-2  text-white bg-blue-800 hover:bg-blue-600 mb-2"
               onClick={handleSignInFacebook}>
               <FaFacebook className="mr-2 text-xl" />
               <p className="font-medium">Sign in with Facebook</p>
-            </button>
-            <button
+            </a>
+            <a
               className="flex h-12 w-full items-center  px-4 py-2  text-white bg-blue-500 hover:bg-blue-400 mb-2"
               onClick={handleSignInTwitter}>
               <FaTwitter className="mr-2 text-xl" />
               <p className="font-medium">Sign in with Twitter</p>
-            </button>
+            </a>
           </div>
         </div>
       </div>

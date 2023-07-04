@@ -67,7 +67,7 @@ const CheckoutForm = ({ slug, detail, setShowCheckout }) => {
         }),
       });
       if (response.ok) {
-        router.push("http://localhost:3000/invest"); // Redirect to the return_url provided by the server
+        router.push("https://final-project-client-virid.vercel.app/invest"); // Redirect to the return_url provided by the server
         setShowCheckout(false);
       } else {
         setMessage("An error occurred while processing the payment.");

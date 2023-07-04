@@ -6,10 +6,12 @@ import Image from "next/image";
 import { BASE_URL } from "@/config/Url";
 import { useRouter } from "next/navigation";
 import "mapbox-gl/dist/mapbox-gl.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/CheckoutForm";
+import { ToastContainer, toast } from "react-toastify";
 
 const stripePromise = loadStripe(
   "pk_test_51NPcQ6ISk7K0qdKAKVPttTgpEXm5kd34yTtUurAg1YQxeAVqRFKwMg5SAqcWdtoFWDHxJpuAG9xzztvjiYWJNEdc00NW8JDNeH"
@@ -57,7 +59,7 @@ const DetailPage = ({ params }) => {
         return { ...options, clientSecret: dataRes.clientSecret };
       });
     } catch (err) {
-      console.log(err);
+      toast.error(err);
     }
   };
 
@@ -89,9 +91,7 @@ const DetailPage = ({ params }) => {
         }
 
         const res = await fetch(`${BASE_URL}/bussinesses/${params.slug}`);
-
         if (!res.ok) throw await res.json();
-
         const data = await res.json();
 
         let isUserFunded = false;
@@ -143,15 +143,17 @@ const DetailPage = ({ params }) => {
 
   return (
     <>
+      <ToastContainer />
+
       <div className="flex flex-col justify-between min-h-screen text-center">
         <div id="map" className="w-screen mt-20 h-[25vh] bg-[#ebebeb] sticky top-0 left-0 z-0" />
 
         {/* Content */}
-        <div className="absolute top-0 left-0 mt-20 py-[15vh] h-auto flex flex-col w-screen mx-auto">
+        <div className="absolute top-0 left-0 mt-20 py-[16vh] h-auto flex flex-col w-screen mx-auto">
           <section className="w-full max-w-[1450px] mx-auto flex justify-start overflow-x-hidden">
             <div className="h-[20vh] px-4">
               <Image
-                className="object-cover w-auto h-full"
+                className="object-cover w-auto h-full rounded-lg border-4 border-slate-200"
                 width={400}
                 height={400}
                 src={
@@ -162,13 +164,16 @@ const DetailPage = ({ params }) => {
               />
             </div>
             <div className="text-left flex flex-col justify-end">
-              <p className="font-bold text-xl bg-white/80 p-2 uppercase rounded-md w-fit">Category</p>
+              <p className="font-bold text-xl bg-white/80 p-2 rounded-md w-fit">
+                Minimum fund: ({Math.ceil(+data?.fundNeeded / 40).toLocaleString("id-ID", { style: "currency", currency: "IDR" })}
+                )
+              </p>
               <p className="font-bold text-4xl mt-4">{data?.name}</p>
               <div className="flex gap-4 mt-2">
                 {showInvest && (
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg" onClick={payment}>
-                    INVEST
-                  </button>
+                  <a className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg py-1 px-2" onClick={payment}>
+                    PRE-ORDER Rp 100.000,00
+                  </a>
                 )}
                 <a
                   href={data?.pdfUrl}
@@ -183,11 +188,11 @@ const DetailPage = ({ params }) => {
           <section className="w-full max-w-[1450px] mx-auto justify-start mt-10 gap-4 px-4">
             <div className="w-72 h-72 flex-shrink-0 float-left p-4">
               <Image
-                className="object-cover w-68 h-68 "
+                className="object-cover w-68 h-68 rounded-lg border-[4px] border-slate-200 shadow-lg"
                 width={400}
                 height={400}
                 src={
-                  data?.brandUrl ??
+                  data?.imagesUrl ??
                   "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-icon-default-avatar-profile-icon-vector-social-media-user-image-208413309.jpg"
                 }
                 alt="IMAGE"

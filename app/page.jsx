@@ -43,9 +43,11 @@ export default function Home() {
           <h1 className="text-blue-500 font-bold text-[30px] md:text-[40px] leading-none">INVEST</h1>
           <h2 className="font-bold text-[55px] md:text-[90px] leading-none">Invest Mate</h2>
           <p className="mt-5 text-[25px]">The future of crowd funding</p>
-          <button className="bg-blue-500 max-w-fit px-4 py-3 rounded-xl text-white shadow-xl my-4" onClick={handleClickInvest}>
+          <a
+            className="bg-blue-500 hover:brightness-90 max-w-fit px-4 py-3 rounded-xl text-white shadow-xl my-4"
+            onClick={handleClickInvest}>
             <p>START INVESTING &gt;</p>
-          </button>
+          </a>
         </div>
 
         <div className="hidden lg:flex absolute right-0 w-[50%] h-full max-h-screen justify-center items-center -z-10 pr-4 md:pr-6 ">

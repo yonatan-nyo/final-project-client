@@ -64,9 +64,9 @@ const Profile = () => {
                 <h2 className="text-2xl font-bold">{profile?.username ?? "Account Name"}</h2>
               </div>
               <div className="flex justify-center sm:justify-start">
-                <button className="bg-red-500 text-white px-4 py-2 rounded-full mt-2" onClick={logout}>
+                <a className="bg-red-500 text-white px-4 py-2 rounded-full mt-2" onClick={logout}>
                   <p className="font-bold">LOGOUT</p>
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -76,13 +76,13 @@ const Profile = () => {
           <div className="flex-grow h-auto w-full sm:w-1/2 rounded mb-2 sm:mr-2 sm:mb-0 mr-2 bg-slate-100 p-2 shadow-lg border-slate-300 border-2">
             <div className="flex items-center mt-2 border-b-2 border-slate-400 w-full pb-2">
               <p className="font-bold text-xl ml-2 mr-2">Business</p>
-              <button
+              <a
                 className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg flex py-1 px-2"
                 onClick={() => router.push("/invest/add")}>
                 <p className="flex items-center gap-2">
                   <span className="text-2xl p-0">+</span>Add
                 </p>
-              </button>
+              </a>
             </div>
             <ul className="list-disc ml-10 mt-5">
               {Businesses?.length ? Businesses?.map((el, i) => <li key={i}>{el.name}</li>) : <li>No Business Published</li>}

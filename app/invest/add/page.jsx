@@ -176,14 +176,14 @@ const Page = () => {
             </div>
 
             <div className="flex gap-2 justify-end py-4">
-              <button
+              <a
                 type="button"
                 className="flex h-12 w-fit items-center px-4 py-1 text-red-600 font-bold hover:bg-red-100 border-2 border-red-600 mb-2 rounded-lg">
                 <p className="font-medium">Cancel</p>
-              </button>
-              <button className="flex h-12 w-fit items-center px-4 py-1 text-white bg-blue-500 hover:bg-blue-800 mb-2 rounded-lg">
+              </a>
+              <a className="flex h-12 w-fit items-center px-4 py-1 text-white bg-blue-500 hover:bg-blue-800 mb-2 rounded-lg">
                 <p className="font-medium">Submit</p>
-              </button>
+              </a>
             </div>
           </div>
         </div>
