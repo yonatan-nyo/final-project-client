@@ -79,9 +79,9 @@ const DetailPage = ({ params }) => {
                 href={data?.pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-red-500 hover:bg-red-700 text-white rounded-md shadow-lg w-fit py-1 px-2"
+                className="bg-red-500 hover:bg-red-700 text-white rounded-md shadow-lg w-fit py-1 px-2 flex justify-center items-center"
               >
-                PROSPEKTUS
+                <p>PROSPEKTUS</p>
               </a>
             </div>
           </div>

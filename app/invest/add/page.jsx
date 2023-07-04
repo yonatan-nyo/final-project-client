@@ -35,7 +35,7 @@ const Page = () => {
       const fundNeeded = event.target.fundNeeded.value;
       const overview = event.target.overview.value;
       const locationDetail = event.target.locationDetail.value;
-      const locationDetail = event.target.locationDetail.value;
+      // const locationDetail = event.target.locationDetail.value;
       const locations = markerCoordinates;
 
       if (
