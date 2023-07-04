@@ -5,6 +5,9 @@ import "./invest.css";
 import { BASE_URL } from "@/config/Url";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+export const fetchCache = "force-no-store";
+export const revalidate = true;
+
 const Invest = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
@@ -13,7 +16,7 @@ const Invest = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await fetch(BASE_URL + "/bussinesses");
+        const res = await fetch(BASE_URL + "/bussinesses", { next: { revalidate: 1 } });
 
         if (!res.ok) {
           throw new Error("Failed to fetch data");
@@ -31,9 +34,7 @@ const Invest = () => {
   }, []);
 
   const filterData = () => {
-    const filtered = data.filter((item) =>
-      item.name?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filtered = data.filter((item) => item.name?.toLowerCase().includes(searchQuery.toLowerCase()));
     setFilteredData(filtered);
   };
 
