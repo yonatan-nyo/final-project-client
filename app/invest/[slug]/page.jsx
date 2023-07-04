@@ -10,7 +10,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/CheckoutForm";
-import "./Stripe.css";
+
 const stripePromise = loadStripe(
   "pk_test_51NPcQ6ISk7K0qdKAKVPttTgpEXm5kd34yTtUurAg1YQxeAVqRFKwMg5SAqcWdtoFWDHxJpuAG9xzztvjiYWJNEdc00NW8JDNeH"
 );
@@ -65,8 +65,8 @@ const DetailPage = ({ params }) => {
     const map = new mapboxgl.Map({
       container: "map", // container ID
       style: "mapbox://styles/mapbox/streets-v12", // style URL
-      center: [-74.5, 40], // starting position [lng, lat]
-      zoom: 9, // starting zoom
+      center: [0, 0], // starting position [lng, lat]
+      zoom: 0, // starting zoom
       interactive: false,
     });
 
@@ -113,7 +113,13 @@ const DetailPage = ({ params }) => {
           setShowInvest(true);
         }
 
-        map.setCenter(data.locations);
+        map.flyTo({
+          center: data.locations,
+          zoom: 9,
+          speed: 1.5,
+          curve: 1.4,
+          essential: true,
+        });
         new mapboxgl.Marker().setLngLat(data.locations).addTo(map);
         setData(data);
       } catch (error) {
