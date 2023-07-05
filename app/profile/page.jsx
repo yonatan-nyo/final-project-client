@@ -47,8 +47,11 @@ const Profile = () => {
   return (
     <>
       <SignIn setSignIn={setSignIn} signIn={signIn} />
-      <div className="flex flex-row pt-28 max-w-[1480px] h-screen mx-auto pb-20">
-        <div className="flex flex-col w-[500px] justify-start ml-2 px-6 h-full items-start border-4 shadow-lg border-slate-200 mr-3 pt-4 rounded-xl">
+      <div className="flex flex-col sm:flex-row pt-28 max-w-[1480px] h-screen pb-20 mx-auto px-4 gap-4">
+        <div className="flex flex-col w-full sm:w-[500px] justify-start px-6 h-full items-start border-4 shadow-lg border-slate-200 mr-3 spy-2 m:py-4 rounded-xl">
+          <p className="mt-10 mb-4 w-full font-bold text-4xl text-center">
+            PROFILE
+          </p>
           <div className="h-48 rounded-lg overflow-hidden mb-4 w-full">
             <Image
               className="object-cover w-auto h-full mx-auto border-4 rounded-lg border-slate-400"
@@ -58,13 +61,19 @@ const Profile = () => {
               alt="IMAGE"
             />
           </div>
-          <div className="flex flex-wrap justify-center sm:justify-start px-4">
-            <div className="h-auto w-auto flex flex-col items-center sm:items-start justify-between py-3">
+
+          <div className="flex flex-wrap justify-center w-full px-4">
+            <div className="h-auto w-auto flex flex-col items-center sm:items-start justify-center py-3">
               <div className="mb-2">
-                <h2 className="text-2xl font-bold">{profile?.username ?? "Account Name"}</h2>
+                <h2 className="text-2xl font-bold">
+                  {profile?.username ?? "Account Name"}
+                </h2>
               </div>
-              <div className="flex justify-center sm:justify-start">
-                <a className="bg-red-500 text-white px-4 py-2 rounded-full mt-2" onClick={logout}>
+              <div className="flex justify-center w-full">
+                <a
+                  className="bg-red-500 text-white px-4 py-2 rounded-full mt-2"
+                  onClick={logout}
+                >
                   <p className="font-bold">LOGOUT</p>
                 </a>
               </div>
@@ -78,18 +87,25 @@ const Profile = () => {
               <p className="font-bold text-xl ml-2 mr-2">Business</p>
               <a
                 className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-lg flex py-1 px-2"
-                onClick={() => router.push("/invest/add")}>
+                onClick={() => router.push("/invest/add")}
+              >
                 <p className="flex items-center gap-2">
                   <span className="text-2xl p-0">+</span>Add
                 </p>
               </a>
             </div>
             <ul className="list-disc ml-10 mt-5">
-              {Businesses?.length ? Businesses?.map((el, i) => <li key={i}>{el.name}</li>) : <li>No Business Published</li>}
+              {Businesses?.length ? (
+                Businesses?.map((el, i) => <li key={i}>{el.name}</li>)
+              ) : (
+                <li>No Business Published</li>
+              )}
             </ul>
           </div>
           <div className="flex-auto w-full sm:w-1/2 h-auto rounded mb-2 sm:mr-2 sm:mb-0 mr-2 bg-slate-100 p-2 shadow-lg border-slate-300 border-2">
-            <p className="font-bold text-xl mx-1 border-b-2 border-slate-400 w-auto pb-2">Investments</p>
+            <p className="font-bold text-xl mx-1 border-b-2 border-slate-400 w-auto pb-2">
+              Investments
+            </p>
             <ul className="list-disc ml-10 mt-5">
               {investments?.map((el, i) => (
                 <li key={i}>{el.bussinessName}</li>

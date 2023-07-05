@@ -18,7 +18,8 @@ export default function Home() {
         viewBox="0 0 603 663"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute -z-10 -left-80 top-20 hidden md:block">
+        className="absolute -z-10 -left-80 top-20 hidden md:block"
+      >
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -28,11 +29,12 @@ export default function Home() {
       </svg>
       <section
         id="home"
-        className="w-full max-w-[1450px] mx-auto md:flex md:justify-between min-h-screen max-w-screen items-center py-20 relative">
+        className="w-full max-w-[1450px] mx-auto md:flex md:justify-between min-h-screen max-w-screen items-center py-20 relative"
+      >
         <div className="block md:hidden w-auto">
           <Image
             alt="Invest together"
-            src="/illustrationInvestMobile.png"
+            src="/IllustrationInvestMobile.png"
             width={800}
             height={800}
             className="w-full h-[450px] object-cover object-bottom"
@@ -40,12 +42,17 @@ export default function Home() {
           />
         </div>
         <div className="h-full flex flex-col justify-center pl-4 md:pl-6 ">
-          <h1 className="text-blue-500 font-bold text-[30px] md:text-[40px] leading-none">INVEST</h1>
-          <h2 className="font-bold text-[55px] md:text-[90px] leading-none">Invest Mate</h2>
+          <h1 className="text-blue-500 font-bold text-[30px] md:text-[40px] leading-none">
+            INVEST
+          </h1>
+          <h2 className="font-bold text-[55px] md:text-[90px] leading-none">
+            Invest Mate
+          </h2>
           <p className="mt-5 text-[25px]">The future of crowd funding</p>
           <a
             className="bg-blue-500 hover:brightness-90 max-w-fit px-4 py-3 rounded-xl text-white shadow-xl my-4"
-            onClick={handleClickInvest}>
+            onClick={handleClickInvest}
+          >
             <p>START INVESTING &gt;</p>
           </a>
         </div>
@@ -62,7 +69,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="w-full justify-start min-h-screen items-center py-24 md:flex relative">
+      <section
+        id="about"
+        className="w-full justify-start min-h-screen items-center py-24 md:flex relative"
+      >
         <div className="absolute top-0 left-0 w-screen h-screen md:flex overflow-hidden">
           <svg
             width="794"
@@ -70,7 +80,8 @@ export default function Home() {
             viewBox="0 0 794 848"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute -z-10 -right-[30rem] top-0">
+            className="absolute -z-10 -right-[30rem] top-0"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -84,7 +95,8 @@ export default function Home() {
             viewBox="0 0 794 848"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute -z-10 -left-[30rem] bottom-0 h-[40rem] object-bottom object-cover">
+            className="absolute -z-10 -left-[30rem] bottom-0 h-[40rem] object-bottom object-cover"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -97,21 +109,26 @@ export default function Home() {
         <div className="w-full md:w-fit px-5 md:px-20 text-center md:text-left">
           <Image
             alt="Invest together"
-            src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-icon-default-avatar-profile-icon-vector-social-media-user-image-208413309.jpg"
+            src="/aboutProfileImage.png"
             width={800}
             height={800}
             className="bg-blend-darken w-32 md:w-52 h-32 md:h-52 mx-auto md:mx-0 object-cover"
             priority
           />
-          <p className="font-bold mt-4">My. developer</p>
+          <p className="font-bold mt-4 text-center">CEO of Invest Mate</p>
         </div>
         <div className="flex-grow text-center md:text-left px-5 md:px-10 mt-10 md:mt-0">
-          <h2 className="text-blue-500 font-bold text-2xl md:text-4xl leading-none">About</h2>
+          <h2 className="text-blue-500 font-bold text-2xl md:text-4xl leading-none">
+            About
+          </h2>
           <p className="mt-5 text-[20px] leading-relaxed max-w-[1000px]">
-            We are the leading destination for passionate individuals seeking support for their innovative projects. With a proven
-            track record of success, we have empowered countless visionaries to transform their ideas into tangible
-            accomplishments. Our platform provides a vibrant and inclusive community, connecting forward-thinking creators with a
-            vast network of enthusiastic backers who share a common goal: to make a difference in the world.
+            We are the leading destination for passionate individuals seeking
+            support for their innovative projects. With a proven track record of
+            success, we have empowered countless visionaries to transform their
+            ideas into tangible accomplishments. Our platform provides a vibrant
+            and inclusive community, connecting forward-thinking creators with a
+            vast network of enthusiastic backers who share a common goal: to
+            make a difference in the world.
           </p>
         </div>
       </section>
