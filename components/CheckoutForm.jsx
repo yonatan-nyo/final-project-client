@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { PaymentElement, LinkAuthenticationElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {
+  PaymentElement,
+  LinkAuthenticationElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
 import { BASE_URL } from "@/config/Url";
 import { useRouter } from "next/navigation";
-import "./Stripe.css";
+// import "./Stripe.css";
+// import "react-toastify/dist/ReactToastify.css";
 
 const CheckoutForm = ({ slug, detail, setShowCheckout }) => {
   const stripe = useStripe();
@@ -69,10 +75,24 @@ const CheckoutForm = ({ slug, detail, setShowCheckout }) => {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit} className="bg-white">
-      <LinkAuthenticationElement id="link-authentication-element" onChange={(e) => setEmail(e?.target?.value)} />
+      <LinkAuthenticationElement
+        id="link-authentication-element"
+        onChange={(e) => setEmail(e?.target?.value)}
+      />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button id="submit" disabled={!stripe || isLoading}>
-        <span id="button-text">{isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}</span>
+      <button
+        id="submit"
+        disabled={!stripe || isLoading}
+        style={{
+          width: "100%",
+          backgroundColor: "#5469d4",
+          padding: "12px 16px",
+          color: "#ffffff",
+        }}
+      >
+        <span id="button-text">
+          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+        </span>
       </button>
       {message && <div id="payment-message">{message}</div>}
     </form>
