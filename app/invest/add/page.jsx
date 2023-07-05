@@ -185,9 +185,9 @@ const Page = () => {
               <div className="flex gap-4 my-4">
                 <label
                   htmlFor="pdfFile"
-                  className="relative inline-flex items-center justify-center w-42 h-10 px-4 py-2 bg-red-600 rounded-md text-white cursor-pointer hover:bg-red-400"
+                  className="relative inline-flex items-center justify-center w-60 h-10 px-4 py-2 bg-red-600 rounded-md text-white cursor-pointer hover:bg-red-400"
                 >
-                  <span>Input Prospectus(.pdf)</span>
+                  <span className="w-69">Input Prospectus(.pdf)</span>
                   <input
                     type="file"
                     name="pdfFile"
