@@ -198,7 +198,7 @@ const Page = () => {
                   />
                 </label>
                 {selectedFile && (
-                  <p className="mt-2 max-w-md text-ellipsis overflow-hidden whitespace-nowrap">
+                  <p className="mt-2 w-full text-ellipsis overflow-hidden whitespace-nowrap">
                     {selectedFile.name ?? "No selected file"}
                   </p>
                 )}
