@@ -143,7 +143,7 @@ const Page = () => {
           <div className="flex-grow flex flex-col justify-between h-auto">
             <div
               ref={mapContainerRef}
-              className="w-auto h-[25vh] bg-[#ebebeb] absolute top-0 left-0"
+              className="w-auto h-40 bg-[#ebebeb] absolute top-0 left-0"
             />
 
             <div>
