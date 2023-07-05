@@ -97,7 +97,7 @@ const Profile = () => {
                         width={400}
                         height={400}
                         src={el.brandUrl}
-                        className="flex-grow h-20 w-full object-cover rounded-md"
+                        className="flex-grow h-20 w-full object-contain rounded-md"
                       />
                       <p
                         className="pt-2 border-t-2 w-full text-center border-slate-200 uppercase tracking-wider font-semibold"
