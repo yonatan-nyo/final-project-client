@@ -19,6 +19,9 @@ const stripePromise = loadStripe(
 
 mapboxgl.accessToken = "pk.eyJ1IjoiaHVpZ2kiLCJhIjoiY2xnYjhxbzdhMXA4ZTNsbzd2Nm80OWsycSJ9.bIZhzPsqKFWtpMgJHDfM7Q";
 
+export const fetchCache = "force-no-store";
+export const revalidate = true;
+
 const DetailPage = ({ params }) => {
   const router = useRouter();
   const [data, setData] = useState({});
